@@ -1,0 +1,22 @@
+/* styles.css - simple clean styling */
+body { font-family: "Segoe UI", Roboto, Arial, sans-serif; margin:0; color:#333; }
+.topbar { background:#b22222; color:white; padding:10px 18px; display:flex; justify-content:space-between; align-items:center; font-weight:600; }
+.vh-center { min-height:100vh; display:flex; align-items:center; justify-content:center; }
+.card { background:white; border-radius:10px; padding:22px; box-shadow:0 8px 24px rgba(0,0,0,0.12); }
+.small-card { width:360px; text-align:center; }
+.login-card { width:420px; text-align:center; padding:28px; border-radius:12px; }
+.logo-small { width:80px; display:block; margin:6px auto 12px; }
+.btn { display:inline-block; padding:10px 16px; border-radius:8px; text-decoration:none; background:#444; color:white; }
+.btn.small { padding:6px 10px; font-size:13px; }
+.btn.red { background:#b22222; border:none; color:white; cursor:pointer; }
+.btn.green { background:#2b8a3e; color:white; }
+.btn.gray { background:#888; color:white; }
+.btn.gray.disabled, .btn.disabled { opacity:0.5; pointer-events:none; }
+.container { padding:24px 40px; max-width:1100px; margin:0 auto; }
+.card.action-card { width:260px; border-radius:12px; padding:20px; text-align:center; }
+form input, form select, form textarea { width:100%; padding:10px; margin:8px 0; border-radius:6px; border:1px solid #ddd; box-sizing:border-box; }
+.form-card { max-width:760px; margin:20px auto; }
+.styled-table { width:100%; border-collapse:collapse; margin-top:14px; background:white; box-shadow:0 6px 18px rgba(0,0,0,0.06); }
+.styled-table thead tr { background:#f4f4f4; }
+.styled-table th, .styled-table td { padding:12px 16px; border-bottom:1px solid #eee; text-align:left; }
+footer { background:#b22222; color:white; text-align:center; padding:12px; position:fixed; bottom:0; width:100%; }

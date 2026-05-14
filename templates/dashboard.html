@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="topbar">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <img src="{{ url_for('static', filename='images/indian_railways_logo.jpg') }}" style="width:36px;">
+      <div>INDIAN RAILWAYS • Ministry of Railways, Government of India</div>
+    </div>
+    <div>Welcome, <b>{{ username }}</b></div>
+  </div>
+
+  <div style="text-align:center; padding:40px;">
+    <h2>Employee Dashboard / कर्मचारी डैशबोर्ड</h2>
+    <p>Select an option below to continue</p>
+    <div style="display:flex; justify-content:center; gap:24px; margin-top:30px;">
+      <div class="card action-card">
+        <img src="{{ url_for('static', filename='images/indian_railways_logo.jpg') }}" style="width:60px;">
+        <h3>Leave Application</h3>
+        <p>Submit a new leave application</p>
+        <a class="btn red" href="{{ url_for('leave_form') }}">Apply Now</a>
+      </div>
+      <div class="card action-card">
+        <img src="{{ url_for('static', filename='images/indian_railways_logo.jpg') }}" style="width:60px;">
+        <h3>View Applications</h3>
+        <p>See your submitted applications</p>
+        <a class="btn" href="{{ url_for('my_applications') }}">View</a>
+      </div>
+      <div class="card action-card">
+        <img src="{{ url_for('static', filename='images/indian_railways_logo.jpg') }}" style="width:60px;">
+        <h3>Logout</h3>
+        <p>Sign out</p>
+        <a class="btn" href="{{ url_for('logout') }}">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>© 2025 Indian Railways • Ministry of Railways, Government of India</footer>
+</body>
+</html>

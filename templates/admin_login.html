@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Admin Login | Indian Railways</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body style="background:url('{{ url_for('static', filename='images/rwf_bg.jpg') }}') center/cover fixed;">
+  <!-- Top red header -->
+  <div class="topbar">Ministry of Railways, Government of India</div>
+
+  <!-- Centered Login Card -->
+  <div class="vh-center">
+    <div class="card login-card">
+      <img src="{{ url_for('static', filename='images/indian_railways_logo.jpg') }}" class="logo-small">
+      <h3>INDIAN RAILWAYS</h3>
+      <p>Admin Login / प्रशासक लॉगिन</p>
+
+      <form method="post" action="{{ url_for('admin_login') }}">
+        <input name="username" placeholder="Enter admin username" required>
+        <input name="password" type="password" placeholder="Enter admin password" required>
+        <button class="btn red" type="submit">
+          <img src="{{ url_for('static', filename='images/indian_railways_logo.jpg') }}" style="width:18px; margin-right:8px;">
+          Sign In / साइन इन
+        </button>
+      </form>
+
+      <p style="font-size:12px; margin-top:8px;">
+        © 2025 Indian Railways • Ministry of Railways, Government of India
+      </p>
+    </div>
+  </div>
+</body>
+</html>

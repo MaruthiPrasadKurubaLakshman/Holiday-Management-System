@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Leave Application</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script>
+    function validateForm() {
+      const phone = document.getElementById('phone').value.trim();
+      if (!/^\d{10}$/.test(phone)) {
+        alert('Phone number must be exactly 10 digits / फोन नंबर में केवल 10 अंक होने चाहिए।');
+        return false;
+      }
+      return true;
+    }
+
+    function updateLeaveOptions() {
+      const gender = document.getElementById('gender').value;
+      const leaveSelect = document.getElementById('nature');
+      leaveSelect.innerHTML = '<option value="" disabled selected>-- Select / चुनें --</option>';
+      const maleOptions = ["On Duty","RH","CL","LHAP","LAP"];
+      const femaleOptions = ["On Duty","RH","CL","LHAP","LAP","CCL"];
+      const opts = (gender === "Female") ? femaleOptions : maleOptions;
+      opts.forEach(opt => {
+        const o = document.createElement('option');
+        o.value = opt; o.textContent = opt;
+        leaveSelect.appendChild(o);
+      });
+      {% if form_data %}
+      // set the selected option if provided
+      const cur = "{{ form_data.nature if form_data else '' }}";
+      if (cur) { leaveSelect.value = cur; }
+      {% endif %}
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      {% if form_data %}
+      // fill form fields
+      const fd = {{ form_data|tojson }};
+      document.querySelector('[name="name"]').value = fd.name || '';
+      document.querySelector('[name="emp_id"]').value = fd.emp_id || '';
+      document.getElementById('gender').value = fd.gender || '';
+      document.querySelector('[name="designation"]').value = fd.designation || '';
+      document.querySelector('[name="department"]').value = fd.department || '';
+      document.querySelector('[name="period_from"]').value = fd.period_from || '';
+      document.querySelector('[name="period_to"]').value = fd.period_to || '';
+      document.querySelector('[name="grounds"]').value = fd.grounds || '';
+      document.querySelector('[name="address"]').value = fd.address || '';
+      document.querySelector('[name="phone"]').value = fd.phone || '';
+      document.querySelector('[name="edit_app_no"]').value = fd.application_no || '';
+      updateLeaveOptions();
+      {% endif %}
+    });
+  </script>
+</head>
+<body>
+  <div class="topbar">INDIAN RAILWAYS</div>
+  <div class="container">
+    <div class="card form-card">
+      <h2>Leave Application Form / अवकाश आवेदन पत्र</h2>
+      <form method="post" action="{{ url_for('submit_leave') }}" onsubmit="return validateForm()">
+        <input name="name" type="text" placeholder="Name / नाम" required>
+        <input name="emp_id" type="text" placeholder="Emp_ID / कर्मचारी आईडी" required>
+
+        <label>Gender / लिंग</label>
+        <select id="gender" name="gender" onchange="updateLeaveOptions()" required>
+          <option value="" disabled selected>-- Select / चुनें --</option>
+          <option value="Male">Male / पुरुष</option>
+          <option value="Female">Female / महिला</option>
+        </select>
+
+        <input name="designation" type="text" placeholder="Designation / पदनाम" required>
+        <input name="department" type="text" placeholder="Department / विभाग" required>
+
+        <label>Nature of Leave / अवकाश का प्रकार</label>
+        <select id="nature" name="nature" required>
+          <option value="" disabled selected>-- Select / चुनें --</option>
+        </select>
+
+        <label>Period From / अवधि से</label>
+        <input name="period_from" type="date" required>
+        <label>Period To / अवधि तक</label>
+        <input name="period_to" type="date" required>
+
+        <textarea name="grounds" placeholder="Grounds / कारण" rows="3" required></textarea>
+        <textarea name="address" placeholder="Address During Leave / अवकाश अवधि का पता" rows="2" required></textarea>
+
+        <input id="phone" name="phone" type="tel" placeholder="Contact Phone (10 digits) / संपर्क फोन" pattern="\d{10}" minlength="10" maxlength="10" required>
+
+        <input type="hidden" name="edit_app_no" value="">
+
+        <button class="btn red" type="submit">Submit & Generate PDF / सबमिट करें</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

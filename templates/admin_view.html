@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Admin View</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"></head>
+<body>
+  <div class="topbar">Application: {{ app.application_no }}</div>
+  <div class="container">
+    <h3>Applicant Details</h3>
+    <p><b>Name:</b> {{ app.name }}</p>
+    <p><b>Emp ID:</b> {{ app.emp_id }}</p>
+    <p><b>Gender:</b> {{ app.gender }}</p>
+    <p><b>Designation:</b> {{ app.designation }}</p>
+    <p><b>Department:</b> {{ app.department }}</p>
+
+    <h3>Leave Details</h3>
+    <p><b>Nature:</b> {{ app.nature }}</p>
+    <p><b>Period:</b> {{ app.period_from }} to {{ app.period_to }}</p>
+    <p><b>Grounds:</b> {{ app.grounds }}</p>
+
+    <h3>Contact</h3>
+    <p><b>Address:</b> {{ app.address }}</p>
+    <p><b>Phone:</b> {{ app.phone }}</p>
+
+    <div style="margin-top:18px;">
+      <a class="btn" href="{{ url_for('admin_action', app_no=app.application_no, action='accept') }}">Accept</a>
+      <a class="btn" href="{{ url_for('admin_action', app_no=app.application_no, action='reject') }}">Reject</a>
+      <a class="btn" href="{{ url_for('admin_action', app_no=app.application_no, action='delete') }}">Delete</a>
+      <a class="btn" href="{{ url_for('admin_dashboard') }}">Back</a>
+    </div>
+  </div>
+</body>
+</html>

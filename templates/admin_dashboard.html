@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <style>
+    /* Flash message styles */
+    .flash-container { margin: 15px auto; max-width: 800px; }
+    .flash { padding: 10px; margin: 8px 0; border-radius: 6px; font-weight: 500; }
+    .flash.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .flash.danger { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .flash.warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    .flash.info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <img src="{{ url_for('static', filename='images/indian_railways_logo.jpg') }}" style="width:36px;">
+      Admin Panel
+    </div>
+    <div><a class="btn" href="{{ url_for('logout') }}">Logout</a></div>
+  </div>
+
+  <!-- ✅ Flash Message Block (add here) -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-container">
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  <!-- ✅ End Flash Block -->
+
+  <div class="container">
+    <h2>Leave Applications Overview</h2>
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Application No</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for app in applications %}
+        <tr>
+          <td>{{ app.application_no }}</td>
+          <td>{{ app.name }}</td>
+          <td>
+            {% if app.status == 'accepted' %}
+              <span style="color:green;font-weight:bold;">Accepted</span>
+            {% elif app.status == 'rejected' %}
+              <span style="color:red;font-weight:bold;">Rejected</span>
+            {% else %}
+              <span style="color:orange;font-weight:bold;">On Process</span>
+            {% endif %}
+          </td>
+          <td>
+            <a class="btn small" href="{{ url_for('admin_view', app_no=app.application_no) }}">View</a>
+            <a class="btn small green {% if app.status != 'onprocess' %}disabled{% endif %}" 
+               href="{{ url_for('admin_action', app_no=app.application_no, action='accept') }}">Accept</a>
+            <a class="btn small red {% if app.status != 'onprocess' %}disabled{% endif %}" 
+               href="{{ url_for('admin_action', app_no=app.application_no, action='reject') }}">Reject</a>
+            <a class="btn small gray {% if app.status == 'onprocess' %}disabled{% endif %}" 
+               href="{{ url_for('admin_action', app_no=app.application_no, action='delete') }}">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

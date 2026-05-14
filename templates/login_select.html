@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Rail Wheel Factory Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="vh-center" style="background:url('{{ url_for('static', filename='images/rwf_bg.jpg') }}') center/cover fixed;">
+  <div class="card small-card">
+    <h2>INDIAN RAILWAYS</h2>
+    <p>Rail Wheel Factory Portal</p>
+    <div style="display:flex; gap:12px; margin-top:18px;">
+      <a class="btn red" href="{{ url_for('admin_login') }}">Admin Login / प्रशासक</a>
+      <a class="btn red" href="{{ url_for('login') }}">User Login / कर्मचारी</a>
+    </div>
+    <p style="margin-top:12px; font-size:12px;"><a href="{{ url_for('generate_credentials_and_pdf') }}">Generate demo credentials.csv</a></p>
+  </div>
+</body>
+</html>
